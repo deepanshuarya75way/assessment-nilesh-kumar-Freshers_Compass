@@ -2,6 +2,10 @@
 
 <div align="center">
 
+<img src="./social-preview.png" alt="FreshersCompass by Nilesh Kumar" width="100%" style="border-radius: 12px; max-width: 900px;" />
+
+<br/><br/>
+
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel%20Production-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://frontend-delta-one-24.vercel.app)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-shukla9523%2FFreshers__Compass-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/shukla9523/Freshers_Compass)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
