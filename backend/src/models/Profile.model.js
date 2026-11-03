@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createResilientModel } from './resilientStorage.js';
 
 // One readiness radar reading captured at a point in time. `day` is the UTC day
 // key so the trendline keeps a single point per day (#58).
@@ -60,5 +61,5 @@ const profileSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model('Profile', profileSchema);
-
+const RealModel = mongoose.models.Profile || mongoose.model('Profile', profileSchema);
+export default createResilientModel('Profile', RealModel);

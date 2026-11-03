@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createResilientModel } from './resilientStorage.js';
 
 const applicationSchema = new mongoose.Schema(
   {
@@ -29,4 +30,5 @@ const applicationSchema = new mongoose.Schema(
 
 applicationSchema.index({ userId: 1, createdAt: -1 });
 
-export default mongoose.model('Application', applicationSchema);
+const RealModel = mongoose.models.Application || mongoose.model('Application', applicationSchema);
+export default createResilientModel('Application', RealModel);

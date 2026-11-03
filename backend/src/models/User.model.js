@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createResilientModel } from './resilientStorage.js';
 
 const userSchema = new mongoose.Schema(
   {
@@ -13,4 +14,5 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model('User', userSchema);
+const RealModel = mongoose.models.User || mongoose.model('User', userSchema);
+export default createResilientModel('User', RealModel);

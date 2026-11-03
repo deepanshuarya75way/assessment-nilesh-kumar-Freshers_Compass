@@ -64,10 +64,11 @@ def parse_resume_with_gemini(raw_text: str) -> dict:
         try:
             init_gemini()
             gemini_models = [
-                os.getenv("GEMINI_MODEL", "gemini-3.8-flash"),
-                "gemini-3.8-flash",
+                os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
                 "gemini-2.5-flash",
-                "gemini-2.5-flash-lite",
+                "gemini-flash-latest",
+                "gemini-3.5-flash",
+                "gemini-3.8-flash",
             ]
             seen_gemini = set()
             for model_name in gemini_models:
@@ -82,7 +83,7 @@ def parse_resume_with_gemini(raw_text: str) -> dict:
                             response_mime_type="application/json",
                             temperature=0.2
                         ),
-                        request_options={"timeout": 12}
+                        request_options={"timeout": 30}
                     )
                     if resp and resp.text and resp.text.strip():
                         parsed_json_str = resp.text.strip()

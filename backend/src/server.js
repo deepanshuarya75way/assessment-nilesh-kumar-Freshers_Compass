@@ -199,14 +199,20 @@ app.use((err, req, res, _next) => {
 });
 
 // ---------- Database connection ----------
+mongoose.set('bufferCommands', false);
+mongoose.set('bufferTimeoutMS', 1500);
+
 const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/FreshersCompass";
 mongoose
   .connect(mongoUri, {
-    serverSelectionTimeoutMS: 5000,
+    serverSelectionTimeoutMS: 3000,
     autoIndex: true,
   })
   .then(() => console.log("MongoDB connected successfully to:", mongoUri))
-  .catch((err) => console.error("MongoDB connection error:", err.message));
+  .catch((err) => {
+    console.warn("MongoDB connection notice:", err.message);
+    console.log("-> Resilient offline store is ACTIVE (all data safely cached in .data/local_db.json)");
+  });
 
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);

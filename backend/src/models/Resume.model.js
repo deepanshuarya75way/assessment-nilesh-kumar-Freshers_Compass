@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createResilientModel } from './resilientStorage.js';
 
 const resumeSchema = new mongoose.Schema(
   {
@@ -42,4 +43,5 @@ const resumeSchema = new mongoose.Schema(
 resumeSchema.index({ userId: 1, createdAt: -1 });
 resumeSchema.index({ userId: 1, updatedAt: -1 });
 
-export default mongoose.model('Resume', resumeSchema);
+const RealModel = mongoose.models.Resume || mongoose.model('Resume', resumeSchema);
+export default createResilientModel('Resume', RealModel);
