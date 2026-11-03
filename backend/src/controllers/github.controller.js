@@ -343,7 +343,7 @@ export const getUserRepositories = async (req, res) => {
     // Fallback baseline if profile has zero public repos or network blocked
     if (repos.length === 0) {
         repos.push({
-          name: "FreshersCompass",
+          name: "Freshers_Compass",
           full_name: `${username}/FreshersCompass`,
           description: "AI-powered career and code intelligence platform for students and early-career developers.",
           stars: 12,
@@ -375,7 +375,7 @@ export const getUserRepositories = async (req, res) => {
 };
 
 export const parseRepoIdentifier = (repoInput) => {
-  if (!repoInput) return { owner: "sanjayjakhar", repo: "FreshersCompass" };
+  if (!repoInput) return { owner: "shukla9523", repo: "Freshers_Compass" };
   let cleaned = repoInput.trim();
   cleaned = cleaned.replace(/^https?:\/\/github\.com\//i, "");
   cleaned = cleaned.replace(/\.git$/i, "");
@@ -384,7 +384,7 @@ export const parseRepoIdentifier = (repoInput) => {
   if (parts.length >= 2) {
     return { owner: parts[0], repo: parts[1] };
   }
-  return { owner: "sanjayjakhar", repo: parts[0] || "FreshersCompass" };
+  return { owner: "shukla9523", repo: parts[0] || "Freshers_Compass" };
 };
 
 export const getRepositoryBranches = async (req, res) => {

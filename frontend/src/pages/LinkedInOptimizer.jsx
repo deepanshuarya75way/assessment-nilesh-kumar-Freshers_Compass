@@ -385,7 +385,7 @@ export default function LinkedInOptimizer() {
                       value={linkedinInput}
                       onChange={(e) => setLinkedinInput(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleFetchLinkedInProfile()}
-                      placeholder="e.g. linkedin.com/in/sanjayjakhar or sanjayjakhar"
+                      placeholder="e.g. linkedin.com/in/shukla9523 or shukla9523"
                       className="w-full px-4 py-2.5 bg-slate-50 rounded-xl border border-slate-200 text-slate-900 text-xs font-mono focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
                     />
                   </div>

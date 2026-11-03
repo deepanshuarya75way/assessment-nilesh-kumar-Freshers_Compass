@@ -519,7 +519,7 @@ export default function PublicPortfolio() {
               Cockpit
             </Link>
             <a
-              href="https://github.com/sanjayjakhar/FreshersCompass"
+              href="https://github.com/shukla9523/Freshers_Compass"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition"

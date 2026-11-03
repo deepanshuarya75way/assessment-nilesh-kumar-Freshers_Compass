@@ -134,7 +134,7 @@ def fetch_repository_data(repo_input: str, max_files_to_read: int = 35, branch: 
         if ge.status == 404:
             raise ValueError(f"Repository '{owner}/{repo_name}' was not found or is private without access token.")
         if ge.status == 403:
-            raise ValueError("GitHub API hourly rate limit reached. Please provide a GITHUB_TOKEN in ai-service/.env, or analyze 'sanjayjakhar/FreshersCompass'.")
+            raise ValueError("GitHub API hourly rate limit reached. Please provide a GITHUB_TOKEN in ai-service/.env, or analyze 'shukla9523/Freshers_Compass'.")
         raise ValueError(f"GitHub API error: {ge.data.get('message', str(ge)) if hasattr(ge, 'data') else str(ge)}")
     except Exception as ex:
         raise ValueError(f"Failed to connect to GitHub: {str(ex)}")

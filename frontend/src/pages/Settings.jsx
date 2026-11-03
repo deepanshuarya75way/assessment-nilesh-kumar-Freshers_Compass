@@ -116,7 +116,7 @@ export default function Settings() {
                 type="text"
                 value={githubUser}
                 onChange={(e) => setGithubUser(e.target.value)}
-                placeholder="e.g. sanjayjakhar"
+                placeholder="e.g. shukla9523"
                 className="w-full px-3 py-2 bg-white rounded-xl border border-border text-xs text-text-dark focus:outline-none focus:border-primary font-mono"
               />
             </div>
@@ -133,7 +133,7 @@ export default function Settings() {
                   type="text"
                   value={vanitySlug}
                   onChange={(e) => setVanitySlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
-                  placeholder="sanjay-dev"
+                  placeholder="nilesh-dev"
                   className="w-full px-3 py-2 bg-white rounded-r-xl border border-border text-xs text-text-dark focus:outline-none focus:border-primary font-mono"
                 />
               </div>

@@ -344,12 +344,11 @@ BACKEND_URL=http://localhost:5000
 
 ---
 
-## 👥 The Team
+## 👤 Author & Developer
 
 | Developer | Role & Contributions | Profiles |
 |---|---|---|
-| **Nilesh Kumar** | **MERN Full-Stack Developer**<br/>• Frontend Architecture & UI/UX<br/>• Resilient Database Storage Layer<br/>• Production Deployment & Vercel Pipeline | [![GitHub](https://img.shields.io/badge/GitHub-shukla9523-181717?style=flat&logo=github)](https://github.com/shukla9523) |
-| **Sanjay Jakhar** | **Team Lead — AI/LLM Engineer**<br/>• AI Microservice & FastAPI Architecture<br/>• LLM Orchestration & RAG Pipeline<br/>• Interview Generation & Pacing Engine | [![GitHub](https://img.shields.io/badge/GitHub-sanjayjakhar-181717?style=flat&logo=github)](https://github.com/sanjayjakhar) |
+| **Nilesh Kumar** | **Full-Stack Developer**<br/>• Full-Stack Architecture (React + Express + FastAPI)<br/>• LLM Orchestration with Google Gemini 2.5 Flash<br/>• Resilient Database Storage Layer<br/>• Production Deployment & CI/CD Pipeline | [![GitHub](https://img.shields.io/badge/GitHub-shukla9523-181717?style=flat&logo=github)](https://github.com/shukla9523) |
 
 **Academic Mentorship:**
 - **Dr. Kuntal Mukherjee**, Associate Professor, Department of Computer Science and Engineering, Birla Institute of Technology, Mesra — Jaipur Campus.

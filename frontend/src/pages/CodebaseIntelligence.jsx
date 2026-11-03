@@ -244,7 +244,7 @@ export default function CodebaseIntelligence() {
   ];
 
   const sampleRepos = [
-    { label: "FreshersCompass (Current)", url: "sanjayjakhar/FreshersCompass" },
+    { label: "FreshersCompass (Current)", url: "shukla9523/Freshers_Compass" },
     { label: "FastAPI Example", url: "tiangolo/fastapi" },
     { label: "Express Starter", url: "expressjs/express" }
   ];
@@ -820,7 +820,7 @@ export default function CodebaseIntelligence() {
                 type="button"
                 onClick={() => {
                   if (!branchDropdownOpen && availableBranches.length === 0) {
-                    fetchBranches(repoInput || analysisData?.metadata?.full_name || 'sanjayjakhar/FreshersCompass');
+                    fetchBranches(repoInput || analysisData?.metadata?.full_name || 'shukla9523/Freshers_Compass');
                   }
                   setBranchDropdownOpen(!branchDropdownOpen);
                 }}

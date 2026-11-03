@@ -181,10 +181,10 @@ export const saveDemoResume = async (req, res) => {
       userId,
       versionLabel: 'V1 - Initial Campus Placement Draft',
       versionNumber: 1,
-      name: 'Sanjay Jakhar',
-      email: 'sanjay.jakhar@example.com',
+      name: 'Nilesh Kumar',
+      email: 'akashshukla9523@gmail.com',
       ats_score: 68,
-      github_username: 'sanjayjakhar',
+      github_username: 'shukla9523',
       skills: ['JavaScript', 'React', 'HTML', 'CSS', 'Node.js', 'Git'],
       experience: [
         {
@@ -206,7 +206,7 @@ export const saveDemoResume = async (req, res) => {
         'Add backend engineering skills like Fastify, PostgreSQL, and Docker.',
         'Include links to GitHub repositories demonstrating real-world applications.',
       ],
-      fileName: 'sanjay_jakhar_v1.pdf',
+      fileName: 'nilesh_kumar_v1.pdf',
       fileSize: 524288,
       createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000), // 14 days ago
     });
@@ -216,10 +216,10 @@ export const saveDemoResume = async (req, res) => {
       userId,
       versionLabel: 'V2 - Fullstack & Fintech Targeted',
       versionNumber: 2,
-      name: 'Sanjay Jakhar',
-      email: 'sanjay.jakhar@example.com',
+      name: 'Nilesh Kumar',
+      email: 'akashshukla9523@gmail.com',
       ats_score: 88,
-      github_username: 'sanjayjakhar',
+      github_username: 'shukla9523',
       skills: ['React', 'Node.js', 'Fastify', 'PostgreSQL', 'Docker', 'Redis', 'REST APIs', 'Git', 'JavaScript', 'Tailwind CSS'],
       experience: [
         {
@@ -240,12 +240,12 @@ export const saveDemoResume = async (req, res) => {
         'Add unit and integration testing coverage metrics (e.g. 85% test coverage via Vitest/Jest).',
         'Add link to system architecture design document in GitHub repository README.',
       ],
-      fileName: 'sanjay_jakhar_fullstack_v2.pdf',
+      fileName: 'nilesh_kumar_fullstack_v2.pdf',
       fileSize: 1048576,
       createdAt: new Date(),
     });
 
-    await Profile.findOneAndUpdate({ userId }, { github_username: 'sanjayjakhar' }, { upsert: true }).catch(() => {});
+    await Profile.findOneAndUpdate({ userId }, { github_username: 'shukla9523' }, { upsert: true }).catch(() => {});
 
     return res.status(200).json({
       message: 'Demo resume versions seeded to MongoDB successfully',
