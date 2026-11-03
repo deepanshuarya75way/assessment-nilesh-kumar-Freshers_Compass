@@ -500,11 +500,16 @@ def _try_llm(profile: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
             from app.services.gemini import init_gemini
 
             init_gemini()
-            for model_name in (
+            seen_models = set()
+            gemini_candidates = [
                 os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
                 "gemini-2.5-flash",
-                "gemini-2.5-flash-lite",
-            ):
+                "gemini-flash-latest",
+            ]
+            for model_name in gemini_candidates:
+                if not model_name or model_name in seen_models:
+                    continue
+                seen_models.add(model_name)
                 try:
                     model = genai.GenerativeModel(model_name)
                     resp = model.generate_content(
@@ -512,7 +517,7 @@ def _try_llm(profile: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
                         generation_config=genai.GenerationConfig(
                             response_mime_type="application/json", temperature=0.6
                         ),
-                        request_options={"timeout": 12},
+                        request_options={"timeout": 25},
                     )
                     if resp and resp.text and resp.text.strip():
                         parsed = resp.text.strip()

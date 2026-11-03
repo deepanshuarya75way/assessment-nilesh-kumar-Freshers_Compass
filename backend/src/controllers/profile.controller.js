@@ -229,7 +229,7 @@ export const recordReadinessSnapshot = async (req, res) => {
     const userId = getEffectiveUserId(req);
     const axes = sanitizeAxes(req.body?.axes);
 
-    if (axes.length !== READINESS_AXES.length) {
+    if (Object.keys(axes).length !== READINESS_AXES.length) {
       return res.status(400).json({
         message: `axes must include numeric values for: ${READINESS_AXES.join(', ')}`,
       });

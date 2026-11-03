@@ -12,9 +12,7 @@ def execute_llm_json(prompt: str, temperature: float = 0.3) -> Dict[str, Any]:
             init_gemini()
             gemini_models = [
                 os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
-                "gemini-2.5-flash",
-                "gemini-3.8-flash",
-                "gemini-2.5-flash-lite",
+                "gemini-flash-latest",
             ]
             seen_gemini = set()
             for model_name in gemini_models:
@@ -29,7 +27,7 @@ def execute_llm_json(prompt: str, temperature: float = 0.3) -> Dict[str, Any]:
                             response_mime_type="application/json",
                             temperature=temperature
                         ),
-                        request_options={"timeout": 12}
+                        request_options={"timeout": 25}
                     )
                     if resp and resp.text and resp.text.strip():
                         return json.loads(resp.text.strip())
@@ -87,7 +85,7 @@ def analyze_linkedin_profile(
     identifies missing keywords, and generates AI-optimized headlines and summaries.
     """
     init_gemini()
-    model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
     prompt = f"""
 You are an executive LinkedIn optimization specialist and senior technical recruiter.
@@ -173,7 +171,7 @@ def generate_project_launch_post(
 ) -> Dict[str, Any]:
     """Generates a viral, high-engagement LinkedIn project launch post."""
     init_gemini()
-    model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
     stack_str = ", ".join(tech_stack) if tech_stack else "React, Node.js, Python"
     highlights_str = "\n".join(f"- {h}" for h in (highlights or []))
@@ -219,7 +217,7 @@ def generate_cold_outreach_dms(
 ) -> Dict[str, Any]:
     """Generates 3 customized cold outreach templates for LinkedIn DMs & InMails."""
     init_gemini()
-    model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
     skills_str = ", ".join(top_skills) if top_skills else "React, Node.js, Python, MongoDB"
 

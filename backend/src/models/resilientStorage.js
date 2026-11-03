@@ -78,16 +78,71 @@ function matchDoc(doc, filter) {
   return true;
 }
 
+function setNestedPath(obj, path, value) {
+  const parts = path.split('.');
+  let current = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    if (!current[parts[i]] || typeof current[parts[i]] !== 'object') {
+      current[parts[i]] = {};
+    }
+    current = current[parts[i]];
+  }
+  current[parts[parts.length - 1]] = value;
+}
+
 function applyUpdate(doc, update) {
   const updated = { ...doc, updatedAt: new Date() };
+
   if (update.$set) {
-    Object.assign(updated, update.$set);
-  }
-  for (const [k, v] of Object.entries(update)) {
-    if (!k.startsWith('$')) {
-      updated[k] = v;
+    for (const [k, v] of Object.entries(update.$set)) {
+      if (k.includes('.')) {
+        setNestedPath(updated, k, v);
+      } else {
+        updated[k] = v;
+      }
     }
   }
+
+  if (update.$pull) {
+    for (const [k, pullCond] of Object.entries(update.$pull)) {
+      if (Array.isArray(updated[k])) {
+        updated[k] = updated[k].filter((item) => {
+          if (pullCond && typeof pullCond === 'object') {
+            return !matchDoc(item, pullCond);
+          }
+          return item !== pullCond;
+        });
+      }
+    }
+  }
+
+  if (update.$push) {
+    for (const [k, pushSpec] of Object.entries(update.$push)) {
+      if (!Array.isArray(updated[k])) {
+        updated[k] = [];
+      }
+      if (pushSpec && typeof pushSpec === 'object' && Array.isArray(pushSpec.$each)) {
+        if (pushSpec.$position === 0) {
+          updated[k].unshift(...pushSpec.$each);
+        } else {
+          updated[k].push(...pushSpec.$each);
+        }
+      } else {
+        updated[k].push(pushSpec);
+      }
+    }
+  }
+
+  for (const [k, v] of Object.entries(update)) {
+    if (!k.startsWith('$')) {
+      if (k.includes('.')) {
+        setNestedPath(updated, k, v);
+      } else {
+        updated[k] = v;
+      }
+    }
+  }
+
   return updated;
 }
 
@@ -277,3 +332,4 @@ export function createResilientModel(collectionName, MongooseModel) {
     },
   });
 }
+

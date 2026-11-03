@@ -20,7 +20,7 @@ export const generateInterviewQuestions = async (req, res) => {
         repositories: Array.isArray(repositories) ? repositories : [],
         project_descriptions: Array.isArray(project_descriptions) ? project_descriptions : [],
       },
-      { headers: getAiServiceHeaders(), timeout: 40000 }
+      { headers: getAiServiceHeaders(), timeout: 60000 }
     );
 
     return res.status(200).json({
@@ -69,7 +69,7 @@ export const evaluateInterview = async (req, res) => {
     const response = await axios.post(
       `${aiServiceUrl}/interview/evaluate`,
       { responses: enrichedResponses, role: role || 'Full-Stack Software Engineer' },
-      { headers: getAiServiceHeaders(), timeout: 40000 }
+      { headers: getAiServiceHeaders(), timeout: 60000 }
     );
 
     return res.status(200).json({

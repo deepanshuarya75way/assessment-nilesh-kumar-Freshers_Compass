@@ -20,7 +20,7 @@ export const optimizeLinkedInProfile = async (req, res) => {
     const response = await axios.post(
       `${aiServiceUrl}/linkedin/review`,
       { headline, about, experience, target_role },
-      { headers: getAiServiceHeaders(), timeout: 35000 }
+      { headers: getAiServiceHeaders(), timeout: 60000 }
     );
 
     return res.status(200).json({
