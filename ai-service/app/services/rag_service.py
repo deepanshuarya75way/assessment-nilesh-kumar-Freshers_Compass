@@ -6,6 +6,38 @@ from typing import List, Dict, Any, Optional, Tuple
 from app.services import llm_service, offline_heuristics
 from app.services.dependency_graph import get_architecture_context
 
+SPARSE_WEIGHT =0.5
+_STOP_WORDS={
+    "a","an","the","is","are","was","were","be","to","of","in","on","for","and","or","how","what","where","which",
+    "why","does","do","did","it","this","that","with","from","by","as","at","can","i","me","my","about","use","used","using","show",}
+
+def _split_identifier(token: str) -> list:
+    t = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", token)
+    t = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", token)
+    return [p.lower() for p in re.split(r"[^A-za-z0-9]+", t) if p]
+
+def _sparse_query_terms(query:str) -> dict:
+    terms = {}
+    for tok in re.findall(r"[A-Za-z_][A-Za-z0-9_]*", query):
+        low = tok.lower()
+        if low in _STOP_WORDS or len(low) < 3:
+            continue
+        identifier_like = ("_" in tok) or any(c.isdigit() for c in tok) \
+            or (tok != low and tok != tok.capitalize())
+        terms[low] = max(terms.get(low, 0.0), 2.0 if identifier_like else 1.0)
+    return terms
+
+def  _sparse_score(terms: dict, text: str, file_path: str) -> float:
+    if not terms:
+        return 0.0
+    haystack = set()
+    for tok in re.findall(r"[A-Za-z_][A-Za-z0-9_]*", f"{file_path} \n {text}"):
+        haystack.add(tok.lower())
+        haystack.update(_split_identifier(tok))
+    total = sum(terms.values())
+    hit = sum(w for t, w in terms.items() if t in haystack)
+    return hit/total
+
 # In-memory vector store cache for fast local RAG queries
 # Format: { "owner/repo": { "chunks": [...], "embeddings": np.ndarray, "normalized_embeddings": np.ndarray } }
 REPO_VECTOR_STORE: Dict[str, Dict[str, Any]] = {}
@@ -96,10 +128,12 @@ def retrieve_relevant_chunks(repo_full_name: str, query: str, top_k: int = 5) ->
     # Keyword boosting: boost chunks where query keywords appear in filename or content
     query_tokens = [tok.lower() for tok in re.findall(r'[a-zA-Z0-9_]{2,}', query) if len(tok) >= 3]
     boosted_similarities = similarities.copy()
+    sparse_terms = _sparse_query_terms(query)
 
     for idx, chunk in enumerate(chunks):
         p_lower = chunk["file_path"].lower()
         c_lower = chunk["content"].lower()
+        boosted_similarities[idx] += SPARSE_WEIGHT * _sparse_score(sparse_terms, chunk["content"], chunk["file_path"])
 
         # Filename / path match boost
         path_matches = sum(1 for tok in query_tokens if tok in p_lower)
